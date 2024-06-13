@@ -36,6 +36,7 @@ const SignUpForm = () => {
     // ✅ This will be type-safe and validated.
     console.log(values);
   }
+  // test
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
