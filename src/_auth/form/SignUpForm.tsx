@@ -3,7 +3,6 @@ import React from "react";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,12 +13,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { signUpValidationSchema } from "@/lib/validation";
-import hello from "../../../public/assets/images/logo.svg";
+import Loader from "@/components/shared/Loader";
+import { Link } from "react-router-dom";
 
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-});
+// const formSchema = z.object({
+//   username: z.string().min(2).max(50),
+// });
 const SignUpForm = () => {
+  const isLoading = false;
   const form = useForm<z.infer<typeof signUpValidationSchema>>({
     resolver: zodResolver(signUpValidationSchema),
     defaultValues: {
@@ -48,25 +49,96 @@ const SignUpForm = () => {
         </p>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 flex flex-col gap-5 w-full"
+          className="flex flex-col gap-4 w-full mt-4"
         >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    className="shad-input"
+                    placeholder="Name"
+                    {...field}
+                  />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel>User Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input
+                    type="text"
+                    className="shad-input"
+                    placeholder="user name"
+                    {...field}
+                  />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
+
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    className="shad-input"
+                    placeholder="Email"
+                    {...field}
+                  />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    className="shad-input"
+                    placeholder="password"
+                    {...field}
+                  />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="shad-button_primary">
+            {isLoading ? <Loader /> : "Submit"}
+          </Button>
+          <p className="text-small-regular text-center text-light-2">
+            Already have an Account?{" "}
+            <Link
+              to="/sign-in"
+              className="text-primary-500 text-small-semibold hover:underline"
+            >
+              Login
+            </Link>
+          </p>
         </form>
       </div>
     </Form>
