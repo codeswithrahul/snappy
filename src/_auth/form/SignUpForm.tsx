@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 //   username: z.string().min(2).max(50),
 // });
 const SignUpForm = () => {
+  console.log(import.meta.env.VITE_APPWRITE_PROJECT_ID);
   const isLoading = false;
   const form = useForm<z.infer<typeof signUpValidationSchema>>({
     resolver: zodResolver(signUpValidationSchema),
